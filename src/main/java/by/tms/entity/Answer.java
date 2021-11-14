@@ -9,26 +9,27 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Question {
+@NoArgsConstructor
+@Entity(name = "answers")
+public class Answer {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     private long id;
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String name;
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String text;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Variable> variables;
     @OneToOne
-    private Variable answer;
-    private int price;
+    private Questionnaire questionnaire;
+    @OneToOne
+    private User user;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String questionAnswers;
+    private Date date;
+
+
 }
