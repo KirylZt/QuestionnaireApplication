@@ -6,10 +6,12 @@ import by.tms.service.QuestionnaireService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @Validated
@@ -23,7 +25,7 @@ public class QuestionnaireController {
         this.questionnaireService = questionnaireService;
     }
 
-    @GetMapping("/addQuest")
+    @PostMapping("/addQuest")
     public ResponseEntity<Questionnaire> addQuestionnaire(@Valid @RequestBody Questionnaire questionnaire){
         if (questionnaireService.createQuestionnaire(questionnaire)){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -37,6 +39,7 @@ public class QuestionnaireController {
         }return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+
     @PutMapping("/delete/{id}")
     public ResponseEntity<Questionnaire> deleteQuestionnaire(@PathVariable long id){
         if (questionnaireService.deleteQuestionnaire(id)) {
@@ -44,6 +47,7 @@ public class QuestionnaireController {
         }else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/getById/{id}")
     public ResponseEntity<Questionnaire> getById(@PathVariable long id){
         if (questionnaireService.getQuestionnaireById(id).isPresent()){
@@ -51,5 +55,12 @@ public class QuestionnaireController {
         }else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Transactional(readOnly = true)
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Questionnaire>> getAll(){
+        if(!questionnaireService.getAll().isEmpty()){
+            return new ResponseEntity<>(questionnaireService.getAll(), HttpStatus.OK);
+        }else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
 }

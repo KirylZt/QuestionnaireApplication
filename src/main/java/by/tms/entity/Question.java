@@ -2,6 +2,7 @@ package by.tms.entity;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +15,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Builder
+@Entity(name = "questions")
 public class Question {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull
     @NotEmpty
@@ -28,7 +31,6 @@ public class Question {
     private String text;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Variable> variables;
-    @OneToOne
-    private Variable answer;
+    private char answer;
     private int price;
 }

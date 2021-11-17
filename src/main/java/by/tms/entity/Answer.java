@@ -21,9 +21,9 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
     private long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Questionnaire questionnaire;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
     @NotNull
     @NotEmpty

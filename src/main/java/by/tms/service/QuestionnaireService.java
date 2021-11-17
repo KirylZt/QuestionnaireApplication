@@ -5,6 +5,7 @@ import by.tms.entity.Questionnaire;
 import by.tms.repository.QuestionnaireDAO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,6 +41,10 @@ public class QuestionnaireService {
             questionnaireDAO.save(questionnaire);
             return true;
         }else return false;
+    }
+
+    public List<Questionnaire> getAll(){
+        return questionnaireDAO.findAll();
     }
 
 }

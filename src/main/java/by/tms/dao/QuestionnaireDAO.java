@@ -3,6 +3,8 @@ package by.tms.dao;
 import by.tms.entity.Question;
 import by.tms.entity.Questionnaire;
 
+import java.util.List;
+
 public interface QuestionnaireDAO {
 
     public void createQuestionnaire(Questionnaire questionnaire);
@@ -16,4 +18,6 @@ public interface QuestionnaireDAO {
     boolean isExist(Questionnaire questionnaire);
 
     boolean isExistById(long id);
+
+    List<Questionnaire> getAll();
 }

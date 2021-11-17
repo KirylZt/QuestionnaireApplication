@@ -39,6 +39,7 @@ public class User {
     @NotEmpty
     @NotBlank
     private String password;
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Override

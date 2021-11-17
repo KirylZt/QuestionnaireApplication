@@ -21,7 +21,7 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    @GetMapping("/addQuest/{questionnaireId}")
+    @PostMapping("/addQuest/{questionnaireId}")
     public ResponseEntity<Question> addQuestion(@Valid @RequestBody Question question,@PathVariable long questionnaireId){
         if (questionService.addQuestion(questionnaireId, question)){
             return new ResponseEntity<>(HttpStatus.OK);

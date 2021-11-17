@@ -40,4 +40,9 @@ public class QuestionnaireDAOImpl implements QuestionnaireDAO{
     public boolean isExistById(long id) {
         return questionnaires.contains(getQuestionnaireById(id));
     }
+
+    @Override
+    public List<Questionnaire> getAll() {
+        return questionnaires;
+    }
 }

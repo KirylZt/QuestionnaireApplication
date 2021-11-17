@@ -3,8 +3,7 @@ package by.tms.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,14 +12,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Builder
+@Entity(name = "variables")
 public class Variable {
     @Id
-    @NotNull
-    @NotEmpty
-    @NotBlank
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    long id;
     private char key;
     @NotNull
     @NotEmpty
