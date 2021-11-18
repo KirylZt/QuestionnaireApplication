@@ -9,7 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -29,7 +30,29 @@ public class Answer {
     @NotEmpty
     @NotBlank
     private String questionAnswers;
-    private Date date;
+    private LocalDate date;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return id == answer.id;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", questionnaire=" + questionnaire +
+                ", user=" + user +
+                ", questionAnswers='" + questionAnswers + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }
