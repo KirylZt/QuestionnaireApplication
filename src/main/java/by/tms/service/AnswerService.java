@@ -2,6 +2,7 @@ package by.tms.service;
 
 import by.tms.entity.Answer;
 import by.tms.entity.AnswerConfiguration;
+import by.tms.entity.Role;
 import by.tms.entity.Status;
 import by.tms.repository.AnswerDAO;
 import by.tms.repository.QuestionnaireDAO;
@@ -41,7 +42,7 @@ public class AnswerService {
 
     public boolean deleteAnswer(long answerId, long userId){
         if (answerDAO.existsAnswerById(answerId) && userDAO.existsById(userId)){
-            if (userDAO.getById(userId).getStatus().equals(Status.HR)) {
+            if (userDAO.getById(userId).getRoles().contains(new Role(0,Status.ROLE_ADMIN))){
                 answerDAO.deleteById(answerId);
                 return true;
             }else return false;
@@ -50,7 +51,7 @@ public class AnswerService {
 
     public boolean updateAnswer(Answer answer, long userId){
         if (answerDAO.existsAnswerById(answer.getId()) && userDAO.existsById(userId)){
-            if (userDAO.getById(userId).getStatus().equals(Status.ADMIN)) {
+            if (userDAO.getById(userId).getRoles().contains(new Role(0,Status.ROLE_ADMIN))) {
                 answerDAO.save(answer);
                 return true;
             }else return false;

@@ -58,9 +58,9 @@ public class QuestionnaireController {
     @Transactional(readOnly = true)
     @GetMapping("/getAll")
     public ResponseEntity<List<Questionnaire>> getAll(){
-        if(!questionnaireService.getAll().isEmpty()){
-            return new ResponseEntity<>(questionnaireService.getAll(), HttpStatus.OK);
-        }else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(questionnaireService.getAll().isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else return new ResponseEntity<>(questionnaireService.getAll(), HttpStatus.OK);
     }
 
 }

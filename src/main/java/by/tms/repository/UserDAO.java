@@ -2,9 +2,12 @@ package by.tms.repository;
 
 import by.tms.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
+@Repository
 public interface UserDAO extends JpaRepository<User, Long> {
-    List<User> getUsersByUserName(String userName);
+    User getUserByUserName(String name);
+    Optional<User> findByUserName(String userName);
 }

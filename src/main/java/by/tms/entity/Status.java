@@ -1,5 +1,7 @@
 package by.tms.entity;
 
 public enum Status {
-    ADMIN,USER,HR
+    ROLE_USER,
+    ROLE_MODERATOR,
+    ROLE_ADMIN
 }

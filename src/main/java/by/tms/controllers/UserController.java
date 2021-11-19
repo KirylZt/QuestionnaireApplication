@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -55,9 +56,9 @@ public class UserController {
 
     @Transactional(readOnly = true)
     @GetMapping("/getByUsername/{username}")
-    public ResponseEntity<List<User>> getByUsername( @PathVariable String username){
-        if(!userService.getByUsername(username).isEmpty()){
-            return new ResponseEntity<>(userService.getByUsername(username),HttpStatus.OK);
+    public ResponseEntity<User> getByUsername( @PathVariable String username){
+        if(userService.getByUsername(username).isPresent()){
+            return new ResponseEntity<>(userService.getByUsername(username).get(),HttpStatus.OK);
         }else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -68,4 +69,5 @@ public class UserController {
             return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
         }else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 }

@@ -3,6 +3,7 @@ package by.tms.controllers;
 
 import by.tms.entity.Answer;
 import by.tms.entity.AnswerConfiguration;
+import by.tms.entity.Questionnaire;
 import by.tms.service.AnswerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class AnswerController {
     }
 
     @PutMapping("/update/{userId}")
-    public ResponseEntity<Answer> updateQuestionnaire(@Valid @RequestBody Answer answer, @PathVariable long userId){
+    public ResponseEntity<Answer> updateAnswer(@Valid @RequestBody Answer answer, @PathVariable long userId){
         if (answerService.updateAnswer(answer, userId)){
             return new ResponseEntity<>(HttpStatus.OK);
         }return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -40,7 +41,7 @@ public class AnswerController {
 
 
     @PutMapping("/delete/{answerId}/{userId}")
-    public ResponseEntity<Answer> deleteQuestionnaire(@PathVariable long answerId, @PathVariable long userId){
+    public ResponseEntity<Answer> deleteAnswer(@PathVariable long answerId, @PathVariable long userId){
         if (answerService.deleteAnswer(answerId,userId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -57,8 +58,8 @@ public class AnswerController {
     @Transactional(readOnly = true)
     @GetMapping("/getAll")
     public ResponseEntity<List<Answer>> getAll(){
-        if(!answerService.getAll().isEmpty()){
-            return new ResponseEntity<>(answerService.getAll(), HttpStatus.OK);
-        }else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(answerService.getAll().isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else return new ResponseEntity<>(answerService.getAll(), HttpStatus.OK);
     }
 }

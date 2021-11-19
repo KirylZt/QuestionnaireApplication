@@ -1,14 +1,15 @@
 package by.tms.service;
 
-import by.tms.dao.UserDAOImpl;
 import by.tms.entity.User;
 import by.tms.repository.UserDAO;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService{
 
     private final UserDAO userDao;
 
@@ -31,8 +32,8 @@ public class UserService {
         }
     }
 
-    public List<User> getByUsername(String username){
-        return userDao.getUsersByUserName(username);
+    public Optional<User> getByUsername(String username){
+        return userDao.findByUserName(username);
     }
 
     public boolean updateUser(User user){
@@ -52,5 +53,4 @@ public class UserService {
     public List<User> getAll(){
         return userDao.findAll();
     }
-
 }
